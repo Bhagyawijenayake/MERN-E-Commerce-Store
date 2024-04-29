@@ -2,7 +2,9 @@
 import User from "../models/userModel.js"; // Importing the User model
 import asyncHandler from "../middlewares/asyncHandler.js"; // Importing asyncHandler middleware
 import bcrypt from "bcrypt"; // Importing bcrypt for password hashing
-import createToken from "../utils/createToken.js"; // Importing createToken function to generate JWT tokens
+
+import createToken from '../utils/createToken.js' // Importing createToken function to generate JWT tokens
+
 
 // Define a function to create a new user
 const createUser = asyncHandler(async (req, res) => {
@@ -51,7 +53,9 @@ const createUser = asyncHandler(async (req, res) => {
 });
 
 // Define a function to login a user
+
 const loginUser = asyncHandler(async (req, res) => {
+
   const { email, password } = req.body;
 
   // Find the user by email in the database
@@ -60,10 +64,12 @@ const loginUser = asyncHandler(async (req, res) => {
   // If user exists, proceed with password validation
   if (existingUser) {
     // Compare the provided password with the hashed password stored in the database
+
     const isPasswordValid = await bcrypt.compare(
       password,
       existingUser.password
     );
+
 
     // If the password is valid, generate and set JWT token as an HTTP-only cookie
     if (isPasswordValid) {
@@ -80,6 +86,7 @@ const loginUser = asyncHandler(async (req, res) => {
     }
   }
 });
+
 
 const logoutCurrentUser = asyncHandler(async (req, res) => {
   res.cookie("jwt", "", {
@@ -198,3 +205,4 @@ export {
   getUserById,
   updateUserById,
 };
+
